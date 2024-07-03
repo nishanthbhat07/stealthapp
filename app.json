@@ -2,7 +2,32 @@
   "expo": {
     "name": "stealthapp",
     "slug": "stealthapp",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "icon":"./assets/images/brand.png",
+    "scheme":"stealthapp",
+    "splash": {
+      "image": "brand",
+      "resizeMode": "contain",
+      "backgroundColor": "#252525"
+    },
+    "plugins": [
+    [
+      "expo-font",
+      {
+        "fonts": [
+          "node_modules/@expo-google-fonts/space-grotesk/SpaceGrotesk_400Regular.ttf",
+          "node_modules/@expo-google-fonts/space-grotesk/SpaceGrotesk_600SemiBold.ttf",
+          "node_modules/@expo-google-fonts/space-grotesk/SpaceGrotesk_700Bold.ttf"
+      ]
+      }
+    ],
+    [
+      "expo-asset",
+      {
+        "assets": ["./assets/icons/brand.svg"]
+      }
+    ]
+  ]
   },
   "name": "stealthapp"
 }

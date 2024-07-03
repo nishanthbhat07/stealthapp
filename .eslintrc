@@ -1,0 +1,70 @@
+{
+    "env": {
+      "browser": true,
+      "es2021": true,
+      "react-native/react-native": true
+    },
+    "extends": [
+      // "plugin:react/recommended",
+      "airbnb",
+      "plugin:react-native/all",
+      "plugin:prettier/recommended",
+      "prettier"
+    ],
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": 12,
+      "sourceType": "module"
+    },
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "extensions": [".js", ".jsx"]
+        }
+      }
+    },
+    "plugins": [
+      "react",
+      "react-native",
+      "react-hooks",
+      "jsx-a11y",
+      "import",
+      "eslint-plugin-prettier",
+      "eslint-plugin-react",
+      "filenames",
+      "prefer-arrow"
+    ],
+    "rules": {
+      "no-console": "warn",
+      "prettier/prettier": "error",
+      "no-unused-vars": "error",
+      "import/prefer-default-export": "off",
+      "react/function-component-definition":"off",
+      "import/extensions": [
+        "error",
+        "ignorePackages",
+        {
+          "js": "never",
+          "jsx": "never",
+          "ts": "never",
+          "tsx": "never"
+        }
+     ],
+     "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".js"] }],
+     "max-params": ["error", 3],
+     "react/style-prop-object":"off",
+     "react/prop-types": [
+      "error",
+      {
+        "ignore": ["style"]
+      }
+    ]
+    },
+    "globals": {
+      "__DEV__": true,
+      "FormData": true
+    }
+  }
+  

@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import Constants from "expo-constants";
 import Animated, {
@@ -51,30 +51,29 @@ const AnimatedSplashScreen = ({ children, image }) => {
     };
   });
 
-  return (
-    <View style={styles.container}>
-      {isAppReady && children}
-      {!isSplashAnimationComplete && (
-        <Animated.View
-          pointerEvents="none"
-          style={[
-            StyleSheet.absoluteFill,
-            {
-              backgroundColor: Constants.expoConfig.splash.backgroundColor,
-            },
-            animatedStyle,
-          ]}
-        >
-          <Image
-            style={styles.logo}
-            contentFit={Constants.expoConfig.splash.resizeMode || "contain"}
-            source={image}
-            onLoadEnd={onImageLoaded}
-          />
-        </Animated.View>
-      )}
-    </View>
-  );
+  if (!isSplashAnimationComplete && !isAppReady) {
+    return (
+      <Animated.View
+        pointerEvents="none"
+        style={[
+          StyleSheet.absoluteFill,
+          {
+            backgroundColor: Constants.expoConfig.splash.backgroundColor,
+          },
+          animatedStyle,
+        ]}
+      >
+        <Image
+          style={styles.logo}
+          contentFit={Constants.expoConfig.splash.resizeMode || "contain"}
+          source={image}
+          onLoadEnd={onImageLoaded}
+        />
+      </Animated.View>
+    );
+  }
+
+  return children;
 };
 
 export default AnimatedSplashScreen;

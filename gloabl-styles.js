@@ -3,10 +3,8 @@ import { colors } from "./src/constants/colors";
 
 export default StyleSheet.create({
   container: {
-    alignItems: "center",
     backgroundColor: colors.white,
     flex: 1,
-    justifyContent: "center",
   },
   root: {
     flex: 1,

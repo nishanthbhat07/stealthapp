@@ -1,25 +1,24 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { LogBox, Text, View } from "react-native";
+import { LogBox, View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import styles from "../gloabl-styles";
-import { FONTS } from "../src/constants/fonts";
+import CardStack from "../src/components/card-stack";
 
 SplashScreen.preventAutoHideAsync();
 
 LogBox.ignoreAllLogs();
 
 export default function App() {
+  const data = [
+    { id: "1", text: "Card 1" },
+    { id: "2", text: "Card 2" },
+    { id: "3", text: "Card 3" },
+    { id: "4", text: "Card 4" },
+    { id: "5", text: "Card 5" },
+  ];
   return (
     <View style={styles.container}>
-      <Text
-        style={{
-          fontFamily: FONTS.regular,
-        }}
-      >
-        Open up App.js to start working on your app!
-      </Text>
-      <StatusBar style="auto" />
+      <CardStack data={data} />
     </View>
   );
 }

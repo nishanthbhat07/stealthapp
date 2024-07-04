@@ -12,10 +12,8 @@ export default StyleSheet.create({
   box: {
     alignSelf: "center",
     borderRadius: 14,
-    // bottom: 0,
     height: 200,
     position: "absolute",
-    // top: width / 2,
     width: width - 100,
   },
   cardBottom: {

@@ -23,10 +23,14 @@ import {
 import styles from "./styles";
 
 const AnimatedSplashScreen = ({ children, image }) => {
+  // Shared value for animation
   const animation = useSharedValue(1);
+  // State to track if app is ready
   const [isAppReady, setAppReady] = useState(false);
+  // State to track if splash animation is complete (not used in this snippet)
   const [isSplashAnimationComplete] = useState(false);
 
+  // Load custom fonts
   useFonts({
     spaceGrotesk400,
     spaceGrotesk600,
@@ -36,21 +40,24 @@ const AnimatedSplashScreen = ({ children, image }) => {
     roboto500,
   });
 
+  // Callback function to handle image load completion
   const onImageLoaded = useCallback(async () => {
     try {
       await SplashScreen.hideAsync();
     } catch (e) {
-      // handle errors
       console.log("ERR", e);
     } finally {
       setAppReady(true);
+      // Start fade-out animation
       animation.value = withTiming(0, { duration: 1000 });
     }
   }, []);
 
+  // Animated style for fade-out effect
   const animatedStyle = useAnimatedStyle(() => {
     return {
       opacity: animation.value,
+      // Uncomment for scale animation
       // transform: [
       //   {
       //     scale: animation.value,
@@ -59,6 +66,7 @@ const AnimatedSplashScreen = ({ children, image }) => {
     };
   });
 
+  // Render splash screen if animation is not complete and app is not ready
   if (!isSplashAnimationComplete && !isAppReady) {
     return (
       <Animated.View
@@ -81,10 +89,13 @@ const AnimatedSplashScreen = ({ children, image }) => {
     );
   }
 
+  // Render children when splash screen is done
   return children;
 };
 
 export default AnimatedSplashScreen;
+
+// PropTypes for type checking
 AnimatedSplashScreen.propTypes = {
   children: PropTypes.node.isRequired,
   // eslint-disable-next-line react/forbid-prop-types

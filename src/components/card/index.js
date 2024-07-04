@@ -8,55 +8,51 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-import { Text, View } from "react-native";
+import { ImageBackground, Platform, Text, View } from "react-native";
 import { Image } from "expo-image";
 import styles from "./styles";
 import { icons } from "../../constants/icons";
 
-const AnimatedImage = Animated.createAnimatedComponent(Image);
+// Create an animated component based on the platform
+const AnimatedImage = Animated.createAnimatedComponent(
+  Platform.OS === "android" ? ImageBackground : Image,
+);
 
 const Card = ({ index, perfomSwipe, item, length }) => {
+  // Shared values for card position
   const offsetX = useSharedValue(0);
   const offsetY = useSharedValue(0);
 
+  // Define pan gesture for card swiping
   const panGesture = Gesture.Pan()
     .onChange((event) => {
+      // Update card position based on gesture
       offsetX.value = event.translationX;
       offsetY.value = event.translationY;
     })
     .onFinalize((event) => {
+      // Check if swipe distance is enough to trigger action
       if (
         Math.abs(event.translationX) > 120 ||
         Math.abs(event.translationY) > 120
       ) {
-        runOnJS(perfomSwipe)();
+        runOnJS(perfomSwipe)(); // Call swipe function if threshold is met
       }
+      // Reset card position with animation
       offsetX.value = withTiming(0);
       offsetY.value = withTiming(0);
     });
 
+  // Define animated styles for the card
   const animatedStyles = useAnimatedStyle(() => {
     return {
       transform: [
         { translateX: offsetX.value },
         { translateY: offsetY.value },
-        // {
-        //   scaleX: withTiming(
-        //     Math.max(
-        //       1 - (length - index - 1) / 10 + 0.05 * (length - index - 1),
-        //       0.8,
-        //     ),
-        //   ),
-        // },
-        // { translateY: withTiming(Math.min((length - index - 1) * 5, 10)) },
+        // Stagger cards vertically based on their index
         { translateY: withTiming(-(length - index - 1) * 70) },
-        // { translateY: 5 * length - index - 1 },
       ],
-      // zIndex: length - index,
       backgroundColor: "transparent",
-      // bottom: index * 20,
-      // bottom: width / index - 1,
-      // marginTop: length <= 3 ? 0 : length - index * 10,
     };
   });
 
@@ -65,12 +61,12 @@ const Card = ({ index, perfomSwipe, item, length }) => {
       <AnimatedImage
         source={item.image}
         style={[styles.box, animatedStyles]}
-        contentFit="cover"
+        contentFit="contain"
       >
         <View style={styles.cardContent}>
+          {/* Card top section */}
           <View style={styles.cardTop}>
             <Text style={styles.bankText}>{item.bank}</Text>
-            {/* <Text style={styles.bankText}>{item.id}</Text> */}
             <Image
               source={icons.creditCardChip}
               style={styles.creditChip}
@@ -78,6 +74,7 @@ const Card = ({ index, perfomSwipe, item, length }) => {
             />
             <Text style={styles.cardNumberText}>{item.cardNumber}</Text>
           </View>
+          {/* Card bottom section */}
           <View style={styles.cardBottom}>
             <View>
               <Text style={styles.label}>Card Holder name</Text>
@@ -100,6 +97,8 @@ const Card = ({ index, perfomSwipe, item, length }) => {
 };
 
 export default Card;
+
+// PropTypes for type checking
 Card.propTypes = {
   index: PropTypes.number.isRequired,
   perfomSwipe: PropTypes.func.isRequired,

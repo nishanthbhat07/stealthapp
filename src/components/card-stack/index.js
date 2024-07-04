@@ -6,10 +6,14 @@ import styles from "./styles";
 import Card from "../card";
 
 const CardStack = ({ cards, setCards }) => {
+  // Function to handle card swipe
   const perfomSwipe = () => {
     setCards((oldData) => {
+      // Remove the last card from the array
       const lastElement = oldData.pop();
+      // Add the last card to the beginning of the array
       oldData.unshift(lastElement);
+      // Return a new array to trigger a re-render
       return [...oldData];
     });
   };
@@ -27,7 +31,7 @@ const CardStack = ({ cards, setCards }) => {
             index={index}
             perfomSwipe={perfomSwipe}
             item={item}
-            length={cards.length}
+            length={cards.length.toString()}
           />
         )}
       />
@@ -36,6 +40,8 @@ const CardStack = ({ cards, setCards }) => {
 };
 
 export default CardStack;
+
+// PropTypes for type checking
 CardStack.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   cards: PropTypes.object.isRequired,

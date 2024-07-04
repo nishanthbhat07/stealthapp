@@ -17,7 +17,10 @@
         "fonts": [
           "node_modules/@expo-google-fonts/space-grotesk/SpaceGrotesk_400Regular.ttf",
           "node_modules/@expo-google-fonts/space-grotesk/SpaceGrotesk_600SemiBold.ttf",
-          "node_modules/@expo-google-fonts/space-grotesk/SpaceGrotesk_700Bold.ttf"
+          "node_modules/@expo-google-fonts/space-grotesk/SpaceGrotesk_700Bold.ttf",
+          "node_modules/@expo-google-fonts/roboto/Roboto_400Regular.ttf",
+          "node_modules/@expo-google-fonts/roboto/Roboto_700Bold.ttf",
+          "node_modules/@expo-google-fonts/roboto/Roboto_500Medium.ttf"
       ]
       }
     ],

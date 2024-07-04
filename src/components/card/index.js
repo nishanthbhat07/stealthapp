@@ -8,7 +8,12 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
+import { Text, View } from "react-native";
+import { Image } from "expo-image";
 import styles from "./styles";
+import { icons } from "../../constants/icons";
+
+const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 const Card = ({ index, perfomSwipe, item, length }) => {
   const offsetX = useSharedValue(0);
@@ -35,29 +40,61 @@ const Card = ({ index, perfomSwipe, item, length }) => {
       transform: [
         { translateX: offsetX.value },
         { translateY: offsetY.value },
-        {
-          scaleX: withTiming(
-            Math.max(
-              1 - (length - index - 1) / 10 + 0.05 * (length - index - 1),
-              0.8,
-            ),
-          ),
-        },
+        // {
+        //   scaleX: withTiming(
+        //     Math.max(
+        //       1 - (length - index - 1) / 10 + 0.05 * (length - index - 1),
+        //       0.8,
+        //     ),
+        //   ),
+        // },
         // { translateY: withTiming(Math.min((length - index - 1) * 5, 10)) },
         { translateY: withTiming(-(length - index - 1) * 70) },
+        // { translateY: 5 * length - index - 1 },
       ],
-      zIndex: index,
+      // zIndex: length - index,
       backgroundColor: "transparent",
+      // bottom: index * 20,
+      // bottom: width / index - 1,
+      // marginTop: length <= 3 ? 0 : length - index * 10,
     };
   });
 
   return (
     <GestureDetector gesture={panGesture}>
-      <Animated.Image
-        source={item}
+      <AnimatedImage
+        source={item.image}
         style={[styles.box, animatedStyles]}
-        resizeMode="contain"
-      />
+        contentFit="cover"
+      >
+        <View style={styles.cardContent}>
+          <View style={styles.cardTop}>
+            <Text style={styles.bankText}>{item.bank}</Text>
+            {/* <Text style={styles.bankText}>{item.id}</Text> */}
+            <Image
+              source={icons.creditCardChip}
+              style={styles.creditChip}
+              contentFit="contain"
+            />
+            <Text style={styles.cardNumberText}>{item.cardNumber}</Text>
+          </View>
+          <View style={styles.cardBottom}>
+            <View>
+              <Text style={styles.label}>Card Holder name</Text>
+              <Text style={styles.displayText}>{item.cardHolderName}</Text>
+            </View>
+            <View>
+              <Text style={styles.label}>Expiry Date</Text>
+              <Text style={styles.displayText}>{item.expiryDate}</Text>
+            </View>
+            <Image
+              source={icons[item.type.toLowerCase()]}
+              style={styles.cardType}
+              contentFit="contain"
+            />
+          </View>
+        </View>
+      </AnimatedImage>
     </GestureDetector>
   );
 };
@@ -66,6 +103,13 @@ export default Card;
 Card.propTypes = {
   index: PropTypes.number.isRequired,
   perfomSwipe: PropTypes.func.isRequired,
-  item: PropTypes.object.isRequired,
+  item: PropTypes.shape({
+    image: PropTypes.symbol.isRequired,
+    cardNumber: PropTypes.string.isRequired,
+    cardHolderName: PropTypes.string.isRequired,
+    expiryDate: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    bank: PropTypes.string.isRequired,
+  }).isRequired,
   length: PropTypes.string.isRequired,
 };

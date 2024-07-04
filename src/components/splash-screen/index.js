@@ -15,6 +15,11 @@ import {
   SpaceGrotesk_600SemiBold as spaceGrotesk600,
   SpaceGrotesk_700Bold as spaceGrotesk700,
 } from "@expo-google-fonts/space-grotesk";
+import {
+  Roboto_400Regular as roboto400,
+  Roboto_700Bold as roboto700,
+  Roboto_500Medium as roboto500,
+} from "@expo-google-fonts/roboto";
 import styles from "./styles";
 
 const AnimatedSplashScreen = ({ children, image }) => {
@@ -26,6 +31,9 @@ const AnimatedSplashScreen = ({ children, image }) => {
     spaceGrotesk400,
     spaceGrotesk600,
     spaceGrotesk700,
+    roboto400,
+    roboto700,
+    roboto500,
   });
 
   const onImageLoaded = useCallback(async () => {

@@ -21,4 +21,4 @@
 - Gesture handler - For tracking and making the components movable
 - Fonts used - Space grotesk and Roboto
 
-APK link --   [App](https://drive.google.com/file/d/1Dfz4ZppuFUhTU-v4Ut-Y-fqvRKKefjHL/view?usp=sharing)
+APK link --   [App](https://drive.google.com/file/d/1rimYGH91Q8XHvntOc1AkfLZRCfQ60OFt/view?usp=sharing)
